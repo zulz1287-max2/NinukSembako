@@ -16,7 +16,7 @@ import { AdminLoginModal } from './components/AdminLoginModal';
 import { AdminPanel } from './components/AdminPanel';
 import { Product, ProductCategory, CartItem } from './types';
 import { INITIAL_PRODUCTS } from './data/initialProducts';
-import { ShoppingBag, SearchX, RotateCcw, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { SearchX, RotateCcw, CheckCircle2 } from 'lucide-react';
 
 export default function App() {
   // State for products list with LocalStorage persistence
@@ -134,6 +134,21 @@ export default function App() {
   });
   const [isAdminLoginModalOpen, setIsAdminLoginModalOpen] = useState<boolean>(false);
   const [isAdminPanelOpen, setIsAdminPanelOpen] = useState<boolean>(false);
+
+  // --- LOGIKA URL RAHASIA /KOJUL ---
+  useEffect(() => {
+    const path = window.location.pathname.toUpperCase();
+    const search = window.location.search.toUpperCase();
+
+    // Memicu jika URL diakses melalui /KOJUL atau ?KOJUL
+    if (path === '/KOJUL' || path === '/KOJUL/' || search.includes('KOJUL')) {
+      if (isAdminLoggedIn) {
+        setIsAdminPanelOpen(true);
+      } else {
+        setIsAdminLoginModalOpen(true);
+      }
+    }
+  }, [isAdminLoggedIn]);
 
   // Success Notification Toast
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -298,21 +313,12 @@ export default function App() {
         </div>
       )}
 
-      {/* Main Header & Navigation */}
+      {/* Main Header & Navigation (Tanpa Tombol Admin) */}
       <Header
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}
         selectedCategory={selectedCategory}
         onCategoryChange={setSelectedCategory}
-        onOpenAdmin={() => {
-          if (isAdminLoggedIn) {
-            setIsAdminPanelOpen(true);
-          } else {
-            setIsAdminLoginModalOpen(true);
-          }
-        }}
-        isAdminLoggedIn={isAdminLoggedIn}
-        onAdminLogout={handleAdminLogout}
         totalProductsCount={products.length}
         cartItemsCount={totalCartItemsCount}
         onOpenCart={() => setIsCartOpen(true)}
@@ -433,7 +439,7 @@ export default function App() {
         onSuccessOrder={handleSuccessOrder}
       />
 
-      {/* Admin Login Modal */}
+      {/* Admin Login Modal (Triggered via URL Rahasia /KOJUL) */}
       <AdminLoginModal
         isOpen={isAdminLoginModalOpen}
         onClose={() => setIsAdminLoginModalOpen(false)}
