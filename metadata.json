@@ -1,0 +1,6 @@
+{
+  "name": "Ninuk Sembako",
+  "description": "Toko Kelontong & Sembako - Belanja Kebutuhan Dapur & Kopi Mudah via WhatsApp",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
