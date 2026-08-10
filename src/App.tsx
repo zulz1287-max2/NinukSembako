@@ -12,6 +12,7 @@ import { BuyModal } from './components/BuyModal';
 import { CartDrawer } from './components/CartDrawer';
 import { Footer } from './components/Footer';
 import { FloatingWhatsApp } from './components/FloatingWhatsApp';
+import { BottomNav } from './components/BottomNav';
 import { AdminLoginModal } from './components/AdminLoginModal';
 import { AdminPanel } from './components/AdminPanel';
 import { Product, ProductCategory, CartItem } from './types';
@@ -325,8 +326,8 @@ export default function App() {
         categories={allCategories}
       />
 
-      {/* Main Container */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 flex-1 w-full">
+      {/* Main Container (Ditambah pb-20 md:pb-8 agar tidak tertutup Bottom Nav HP) */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20 md:pb-8 flex-1 w-full">
         
         {/* Welcome Hero Banner */}
         <HeroBanner
@@ -459,6 +460,17 @@ export default function App() {
         onAddCategory={handleAddCategory}
         onDeleteCategory={handleDeleteCategory}
         onLogout={handleAdminLogout}
+      />
+
+      {/* Bottom Navigation Bar Khusus Tampilan Aplikasi HP */}
+      <BottomNav
+        cartItemsCount={totalCartItemsCount}
+        onOpenCart={() => setIsCartOpen(true)}
+        onScrollToTop={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        onOpenCategories={() => {
+          const el = document.getElementById('produk-section');
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }}
       />
 
     </div>
