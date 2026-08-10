@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PhoneCall, MessageCircle, X, ShoppingCart } from 'lucide-react';
+import { MessageCircle, X, ShoppingCart } from 'lucide-react';
 import { STORE_WA_NUMBER } from '../utils/formatters';
 
 interface FloatingWhatsAppProps {
@@ -18,7 +18,8 @@ export const FloatingWhatsApp: React.FC<FloatingWhatsAppProps> = ({
   )}`;
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end gap-3 group">
+    /* Diatur bottom-20 pada HP agar tidak menutupi Bottom Nav Bar, dan md:bottom-5 pada Laptop/PC */
+    <div className="fixed bottom-20 md:bottom-5 right-4 sm:right-5 z-40 flex flex-col items-end gap-3 group">
       
       {/* Floating Cart Button (shows if items > 0) */}
       {cartItemsCount > 0 && onOpenCart && (
